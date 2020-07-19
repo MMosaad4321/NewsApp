@@ -1,5 +1,7 @@
 package com.example.newsapp.network
 
+import com.example.newsapp.Common.ApplicationDelegate
+import com.example.newsapp.Utilities.Api_Environment
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -10,7 +12,7 @@ object RetrofitClient {
     fun getClient() :Retrofit{
         if(retrofit ==null)
         retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org")
+            .baseUrl(ApplicationDelegate.environment)
 
             .addConverterFactory(GsonConverterFactory.create())
             .build()
