@@ -24,6 +24,7 @@ abstract class NewsDB : RoomDatabase() {
                         NewsDB::class.java,
                         DATABASE_NAME
                     )
+                        .allowMainThreadQueries()
                         .build()
                 }
             }

@@ -10,11 +10,13 @@ class ApplicationDelegate : Application() {
     companion object {
         val environment = Api_Environment.development.getApiUrl()
         lateinit var mDb : NewsDB
+        lateinit var mInstance : Context
 
     }
 
     override fun onCreate() {
         super.onCreate()
-        mDb  = NewsDB.getInstance(this)!!
+        mInstance = applicationContext
+        mDb  = NewsDB.getInstance(mInstance)!!
     }
 }

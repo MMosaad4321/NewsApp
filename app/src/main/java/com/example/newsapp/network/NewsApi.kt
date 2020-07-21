@@ -14,4 +14,11 @@ internal interface NewsApi {
         @Query("apiKey") apiKey: String?,
         @Query("page") page:Int =1
     ): Call<Articles>
+
+
+    @GET("v2/top-headlines")
+    fun getHeadlinesBySource(
+        @Query("sources") id: String?,
+        @Query("apiKey") apiKey: String?
+    ): Call<Articles>
 }

@@ -1,20 +1,18 @@
-package com.example.newsapp.ui.newsDetails
+package com.example.newsapp.ui.Details.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import com.example.newsapp.Common.BaseActivity
 import com.example.newsapp.R
 import com.example.newsapp.Utilities.URL_KEY
 import kotlinx.android.synthetic.main.activity_details.*
 
 
-class DetailsActivity : BaseActivity() {
+class DetailsActivity : AppCompatActivity() {
 
     private var webView: WebView? = null
 

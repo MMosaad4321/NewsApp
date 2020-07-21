@@ -1,20 +1,21 @@
 package com.example.newsapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.newsapp.models.Article
 
 @Dao
 interface ArticleDao {
-    @Query("Select * from favouriteNews")
-    fun getAllFavouriteNews(): List<Article>
+    @Query("SELECT * FROM favouriteNews")
+    fun getAllFavouriteNews():List<Article>
 
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addFavouriteNews(article: Article)
 
     @Delete
     fun deleteFavouriteNews(article: Article)
+
+    @Query("SELECT * FROM favouriteNews WHERE url = :url")
+    fun getSpecificArticle(url : String) : Article
 }
