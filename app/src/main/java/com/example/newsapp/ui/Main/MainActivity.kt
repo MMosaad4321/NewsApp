@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         navigationView.setOnNavigationItemSelectedListener {
             if (it.itemId == R.id.navigation_news && bottomNavigationState != 1) {
-
+                navigationView.menu.findItem(R.id.navigation_favourites).setIcon(R.drawable.ic_baseline_star_border_24)
                 bottomNavigationState = 1
                 fragmentManager.replaceFragment(HeadLineNewsFragment())
                 return@setOnNavigationItemSelectedListener true
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
                 bottomNavigationState = 2
                 fragmentManager.replaceFragment(HeadLineNewsLocalFragment())
+                it.setIcon(R.drawable.ic_baseline_star_24)
                 return@setOnNavigationItemSelectedListener true
 
             }

@@ -11,13 +11,11 @@ import com.example.newsapp.R
 import com.example.newsapp.Utilities.URL_KEY
 import com.example.newsapp.ui.Main.DetailsForSource.view.SourceDetailsFragment
 
-abstract class BaseFragment : Fragment()  {
+abstract class BaseFragment : Fragment() {
     abstract var progressbarId: Int?
     abstract var layout: View?
 
-    private var loadingProgressBar: ProgressBar?= null
-
-
+    private var loadingProgressBar: ProgressBar? = null
 
 
     override fun onCreateView(
@@ -25,39 +23,41 @@ abstract class BaseFragment : Fragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       loadingProgressBar = progressbarId?.let { layout?.findViewById(it) }
+        loadingProgressBar = progressbarId?.let { layout?.findViewById(it) }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    open fun navigate(destination : Class<*>) {
-        val intent = Intent(context , destination);
+    open fun navigate(destination: Class<*>) {
+        val intent = Intent(context, destination);
         startActivity(intent)
     }
 
-    open fun navigate(destination : Class<*>, parameter : String ) {
-        val intent = Intent(context , destination)
-        intent.putExtra(URL_KEY,parameter)
+    open fun navigate(destination: Class<*>, parameter: String) {
+        val intent = Intent(context, destination)
+        intent.putExtra(URL_KEY, parameter)
         startActivity(intent)
     }
 
-    open fun registerObservers(viewModel : BaseViewModel) {
+    open fun registerObservers(viewModel: BaseViewModel) {
 
         viewModel.mLoadingObserver.observe(this, Observer {
-            loadingProgressBar?.visibility = View.GONE
+            if (it)
+                loadingProgressBar?.visibility = View.VISIBLE
+            else
+                loadingProgressBar?.visibility = View.GONE
         })
 
         viewModel.mSourceObserver.observe(viewLifecycleOwner, Observer {
             val bundle = Bundle()
-            bundle.putString("id",it)
+            bundle.putString("id", it)
             val sourceDetailsFragment = SourceDetailsFragment()
-            sourceDetailsFragment.arguments  = bundle
+            sourceDetailsFragment.arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.fragmentContainer,sourceDetailsFragment)
+                ?.replace(R.id.fragmentContainer, sourceDetailsFragment)
                 ?.addToBackStack(null)
                 ?.commit()
         })
     }
-
 
 
 }

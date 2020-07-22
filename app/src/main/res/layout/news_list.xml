@@ -102,7 +102,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/errorTextView"
+        android:id="@+id/errorPageImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="No Favourites"

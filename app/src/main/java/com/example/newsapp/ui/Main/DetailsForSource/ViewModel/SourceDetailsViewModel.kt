@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapp.Common.ApplicationDelegate
 import com.example.newsapp.Common.BaseViewModel
 import com.example.newsapp.models.Article
-import com.example.newsapp.network.NewsRepository
+import com.example.newsapp.Common.NewsRepository
 import kotlinx.coroutines.launch
 
 class SourceDetailsViewModel : BaseViewModel() {

@@ -21,4 +21,11 @@ internal interface NewsApi {
         @Query("sources") id: String?,
         @Query("apiKey") apiKey: String?
     ): Call<Articles>
+
+    @GET("v2/everything")
+    fun searchNews(
+        @Query("q") text: String?,
+        @Query("sortBy")sortBy :String,
+        @Query("apiKey") apiKey: String?
+    ):Call<Articles>
 }

@@ -16,7 +16,7 @@ class ApplicationDelegate : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        mInstance = applicationContext
+        mInstance = this
         mDb  = NewsDB.getInstance(mInstance)!!
     }
 }

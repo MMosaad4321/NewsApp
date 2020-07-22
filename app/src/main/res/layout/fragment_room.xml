@@ -33,16 +33,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
-    <TextView
-        android:id="@+id/errorTextView"
+    <ImageView
+        android:id="@+id/errorPageImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="No Favourites"
+        android:scaleType="fitXY"
         android:visibility="gone"
-        android:textAlignment="center"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />

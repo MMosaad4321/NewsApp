@@ -79,7 +79,7 @@ class HeadLineNewsLocalAdapter(
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
         val favouriteImageButton: ImageButton = itemView.findViewById(R.id.favouriteImageButton)
         val shareImageButton: ImageButton = itemView.findViewById(R.id.shareImageButton)
-        val errorTextView: TextView = itemView.findViewById(R.id.errorTextView)
+        val errorTextView: TextView = itemView.findViewById(R.id.errorPageImageView)
     }
 
 

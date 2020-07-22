@@ -27,7 +27,7 @@ class HeadLineNewsFragment : BaseFragment() {
     lateinit var headLinesViewModel: HeadLinesViewModel
     lateinit var headLineNewsAdapter: HeadLineNewsAdapter
     private var searchView: SearchView? = null
-    var firstTime = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,10 +67,6 @@ class HeadLineNewsFragment : BaseFragment() {
 
             headLinesViewModel.mLoadingObserver.value = false
             if (!it.isNullOrEmpty()) {
-                if (firstTime == 0) {
-                    headLinesViewModel.articlesTemp.value = it
-                    firstTime+=1
-                }
                 headLineNewsAdapter.notifyDataSetChanged()
             } else {
                 headLinesViewModel.mShowErrorToast.value = R.string.app_name
@@ -116,16 +112,15 @@ class HeadLineNewsFragment : BaseFragment() {
 
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String): Boolean {
-                var articles = headLinesViewModel.articlesTemp.value
+
                 if (newText.isEmpty()) {
-                    headLinesViewModel.articlesList.value = headLinesViewModel.articlesTemp.value
+                    headLinesViewModel.getDataFromNetwork()
                     return true
+                }else{
+                    headLinesViewModel.searchNewsNetwork(newText)
                 }
 
-                var filteredList = articles?.filter {
-                    it.source?.name?.toLowerCase()?.contains(newText.toLowerCase()) ?: false
-                }
-                headLinesViewModel.articlesList.value = filteredList
+
 
                 return true
             }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.models.Article
-import com.example.newsapp.network.NewsRepository
+import com.example.newsapp.Common.NewsRepository
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,21 +1,19 @@
-package com.example.newsapp.network
+package com.example.newsapp.Common
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.example.newsapp.Common.ApplicationDelegate
 import com.example.newsapp.models.Article
 import com.example.newsapp.models.Articles
+import com.example.newsapp.network.NewsApi
+import com.example.newsapp.network.RetrofitClient
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.*
 
 object NewsRepository {
 
-    private val retroApi = RetrofitClient.getClient().create(NewsApi::class.java)
+    private val retroApi = RetrofitClient.getClient()
+        .create(NewsApi::class.java)
 
     suspend fun getNews(onComplete: (Articles?) -> Unit) = withContext(Dispatchers.IO) {
         val articles = retroApi.getHeadlines(
@@ -46,6 +44,19 @@ object NewsRepository {
     suspend fun getNewsBySource(id :String,onComplete: (Articles?) -> Unit) = withContext(Dispatchers.IO) {
         val articles = retroApi.getHeadlinesBySource(
             id,
+            "86cf320fbd4e404db937cb915aef1cb3"
+        ).await()
+        withContext(Dispatchers.Main) {
+            onComplete(articles)
+        }
+
+
+    }
+
+    suspend fun searchNewsBySource(text :String,onComplete: (Articles?) -> Unit) = withContext(Dispatchers.IO) {
+        val articles = retroApi.searchNews(
+            text,
+            "publishedAt",
             "86cf320fbd4e404db937cb915aef1cb3"
         ).await()
         withContext(Dispatchers.Main) {

@@ -18,4 +18,8 @@ interface ArticleDao {
 
     @Query("SELECT * FROM favouriteNews WHERE url = :url")
     fun getSpecificArticle(url : String) : Article
+
+
+    @Query("SELECT * FROM favouriteNews")
+    fun getAllFavouriteNews1():LiveData<List<Article>>
 }
