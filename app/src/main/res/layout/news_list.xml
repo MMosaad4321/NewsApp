@@ -101,16 +101,5 @@
             app:srcCompat="@drawable/ic_baseline_share_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/errorPageImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No Favourites"
-        android:textColor="#000"
-        android:visibility="gone"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        />
 
 </androidx.cardview.widget.CardView>

@@ -22,8 +22,6 @@ class SourceDetailsFragment :BaseFragment() {
     override var layout: View?= null
     override var progressbarId: Int? = R.id.sourceProgressBar
     lateinit var sourceAdapter : SourceAdapter
-    private var searchView: SearchView? = null
-    var first = 0
 
     private lateinit var sourceDetailsViewModel: SourceDetailsViewModel
 
@@ -35,7 +33,7 @@ class SourceDetailsFragment :BaseFragment() {
 
         layout = inflater.inflate(R.layout.source_details_fragment, container, false)
 
-        sourceDetailsViewModel = ViewModelProvider(this).get(SourceDetailsViewModel::class.java)
+        setupViewModel()
 
         val id = arguments?.getString("id")
         sourceDetailsViewModel.getDataFromNetwork(id)
@@ -51,15 +49,16 @@ class SourceDetailsFragment :BaseFragment() {
         return layout
     }
 
+    private fun setupViewModel() {
+        sourceDetailsViewModel = ViewModelProvider(this).get(SourceDetailsViewModel::class.java)
+    }
+
     override fun registerObservers(viewModel: BaseViewModel) {
         super.registerObservers(viewModel)
         sourceDetailsViewModel.articlesList.observe(viewLifecycleOwner, Observer {
 
             sourceDetailsViewModel.mLoadingObserver.value = false
             if (it.isNullOrEmpty()) {
-                if (first==0){
-                    sourceDetailsViewModel.articlesTemp.value = it
-                }
                 sourceAdapter.notifyDataSetChanged()
             }else{
                 sourceDetailsViewModel.mShowErrorToast.value  = R.string.app_name

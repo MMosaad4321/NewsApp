@@ -34,9 +34,12 @@ class HeadLineNewsLocalFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         layout =inflater.inflate(R.layout.fragment_room,container,false)
-        headLinesLocalViewModel = ViewModelProvider(this).get(HeadLinesLocalViewModel::class.java)
-        layout?.newsRoomRecyclerView?.layoutManager = LinearLayoutManager(context)
 
+        Glide.with(this).load(R.drawable.page_empty_page).into(layout?.errorPageImageView!!)
+
+        setupViewModel()
+
+        layout?.newsRoomRecyclerView?.layoutManager = LinearLayoutManager(context)
         headLineNewsLocalAdapter =
             HeadLineNewsLocalAdapter(
                 headLinesLocalViewModel
@@ -51,6 +54,10 @@ class HeadLineNewsLocalFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         return layout
+    }
+
+    private fun setupViewModel() {
+        headLinesLocalViewModel = ViewModelProvider(this).get(HeadLinesLocalViewModel::class.java)
     }
 
     override fun registerObservers(viewModel: BaseViewModel) {
@@ -83,7 +90,6 @@ class HeadLineNewsLocalFragment : BaseFragment() {
 
         headLinesLocalViewModel.mPlaceHolderObserver.observe(viewLifecycleOwner, Observer {
             if(it){
-                Glide.with(this).load(R.drawable.page_empty_page).into(layout?.errorPageImageView!!)
                 layout?.errorPageImageView?.visibility = View.VISIBLE
             }else{
                 layout?.errorPageImageView?.visibility = View.GONE

@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class SourceDetailsViewModel : BaseViewModel() {
     var mAddFavorite = MutableLiveData<Article>()
     var articlesList = MutableLiveData<List<Article>>()
-    var articlesTemp = MutableLiveData<List<Article>>()
 
     fun getDataFromNetwork(id: String?) {
         viewModelScope.launch {

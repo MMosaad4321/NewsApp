@@ -46,19 +46,14 @@ class HeadLineNewsLocalAdapter(
                 holder.favouriteImageButton.setImageResource(R.drawable.ic_baseline_star_border_24)
             }
 
-            holder.nameTextView.setOnClickListener {
-                article?.source?.id?.let {
-                    mViewModel.mSourceObserver.value =
-                        it
-                }
-            }
+
 
             holder.newsImage.setOnClickListener {
-                mViewModel.navigateDetails.value = article?.url
+                mViewModel.navigateDetails.value = article.url
             }
 
             holder.shareImageButton.setOnClickListener {
-                mViewModel.mSharingObserver.value = article?.url
+                mViewModel.mSharingObserver.value = article.url
             }
 
             holder.favouriteImageButton.setOnClickListener {
@@ -79,7 +74,6 @@ class HeadLineNewsLocalAdapter(
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
         val favouriteImageButton: ImageButton = itemView.findViewById(R.id.favouriteImageButton)
         val shareImageButton: ImageButton = itemView.findViewById(R.id.shareImageButton)
-        val errorTextView: TextView = itemView.findViewById(R.id.errorPageImageView)
     }
 
 

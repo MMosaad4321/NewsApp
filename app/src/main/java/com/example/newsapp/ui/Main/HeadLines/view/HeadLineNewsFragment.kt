@@ -43,7 +43,7 @@ class HeadLineNewsFragment : BaseFragment() {
 
         layout = inflater.inflate(R.layout.fragment_network, container, false)
 
-        headLinesViewModel = ViewModelProvider(this).get(HeadLinesViewModel::class.java)
+        setupViewModel()
 
         layout?.newsNetworkRecyclerView?.layoutManager = LinearLayoutManager(context)
 
@@ -59,6 +59,10 @@ class HeadLineNewsFragment : BaseFragment() {
 
 
         return layout
+    }
+
+    private fun setupViewModel() {
+        headLinesViewModel = ViewModelProvider(this).get(HeadLinesViewModel::class.java)
     }
 
     override fun registerObservers(viewModel: BaseViewModel) {

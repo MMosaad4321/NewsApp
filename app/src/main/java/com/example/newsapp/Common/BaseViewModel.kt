@@ -27,7 +27,7 @@ open class BaseViewModel : ViewModel() {
         return DateFormat.format("dd,MMM yyyy", date) as String
     }
 
-    fun deleteNews(article: Article) {
+    open fun deleteNews(article: Article) {
         viewModelScope.launch {
             NewsRepository.deleteNewsRepo(article)
         }
