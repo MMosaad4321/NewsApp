@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
@@ -9,14 +10,18 @@ android {
 
     defaultConfig {
         applicationId "com.example.newsapp"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        resConfigs "en"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -58,14 +63,23 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:2.1.0-alpha04"
-    implementation "androidx.room:room-coroutines:2.1.0-alpha04"
     kapt "androidx.room:room-compiler:2.1.0-alpha04"
 
 
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    //Firebase Authentication
+    implementation 'com.firebaseui:firebase-ui-auth:6.3.0'
 
-    //Paging
-    implementation "androidx.paging:paging-runtime:2.1.2"
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
 
+    implementation 'com.twitter.sdk.android:twitter-core:3.3.0'
 
+    def koin_version = "2.1.5"
+    // Koin AndroidX Scope feature
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+
+    // Koin AndroidX ViewModel feature
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    // Koin AndroidX Fragment Factory (unstable version)
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
 }

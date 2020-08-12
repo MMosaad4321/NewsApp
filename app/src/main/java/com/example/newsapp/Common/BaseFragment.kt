@@ -10,8 +10,9 @@ import androidx.lifecycle.Observer
 import com.example.newsapp.R
 import com.example.newsapp.Utilities.URL_KEY
 import com.example.newsapp.ui.Main.DetailsForSource.view.SourceDetailsFragment
+import org.koin.core.KoinComponent
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), KoinComponent {
     abstract var progressbarId: Int?
     abstract var layout: View?
 

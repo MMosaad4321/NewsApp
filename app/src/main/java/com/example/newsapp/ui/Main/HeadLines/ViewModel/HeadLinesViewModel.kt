@@ -7,12 +7,18 @@ import com.example.newsapp.Common.ApplicationDelegate
 import com.example.newsapp.Common.BaseViewModel
 import com.example.newsapp.models.Article
 import com.example.newsapp.Common.NewsRepository
+import com.example.newsapp.database.ArticleDao
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.logger.Level
+import org.koin.core.logger.PrintLogger
 
-class HeadLinesViewModel : BaseViewModel() {
+class HeadLinesViewModel : BaseViewModel(), KoinComponent {
     var mAddFavorite = MutableLiveData<Article>()
     var articlesList = MutableLiveData<List<Article>>()
     var firstTime = 0
+    private val articleDao : ArticleDao by inject()
 
 
 
@@ -20,11 +26,14 @@ class HeadLinesViewModel : BaseViewModel() {
 
 
     fun getDataFromNetwork() {
+
         viewModelScope.launch {
-            NewsRepository.getNews {
+            newsRepo.getNews {
                 mLoadingObserver.value = true
                 firstTime = 0
                 articlesList.value = it?.articles ?: arrayListOf()
+
+                PrintLogger().log(Level.ERROR, it?.articles.toString())
 
             }
         }
@@ -34,7 +43,7 @@ class HeadLinesViewModel : BaseViewModel() {
         viewModelScope.launch {
 
             mLoadingObserver.value = true
-            NewsRepository.searchNewsBySource(text) {
+            newsRepo.searchNewsBySource(text) {
                 articlesList.value = it?.articles ?: arrayListOf()
 
             }
@@ -46,11 +55,11 @@ class HeadLinesViewModel : BaseViewModel() {
 
      fun addNews(article: Article) {
         viewModelScope.launch {
-            NewsRepository.addNewsRepo(article)
+            newsRepo.addNewsRepo(article)
         }
     }
     fun isFavourite(article: Article):Boolean{
-        val roomArticle = ApplicationDelegate.mDb.articleDao.getSpecificArticle(article.url)
+        val roomArticle = articleDao.getSpecificArticle(article.url)
         return article == roomArticle
     }
 }

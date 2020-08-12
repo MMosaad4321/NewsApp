@@ -28,7 +28,7 @@ class SourceAdapter(
         )
     }
 
-    override fun getItemCount(): Int  = mViewModel.articlesList.value?.count() ?: 0
+    override fun getItemCount(): Int = mViewModel.articlesList.value?.count() ?: 0
 
     override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {
         val article = mViewModel.getArticle(position)
@@ -39,10 +39,10 @@ class SourceAdapter(
         holder.newsImage.loadImage(article?.urlToImage)
         holder.descriptionTextView.text = article?.description
 
-        if (mViewModel.isFavourite(article!!)){
+        if (mViewModel.isFavourite(article!!)) {
             holder.favouriteImageButton.tag = FAV_TAG
             holder.favouriteImageButton.setImageResource(R.drawable.ic_baseline_star_24)
-        }else{
+        } else {
             holder.favouriteImageButton.tag = NOT_FAV_TAG
             holder.favouriteImageButton.setImageResource(R.drawable.ic_baseline_star_border_24)
         }
@@ -57,12 +57,11 @@ class SourceAdapter(
         }
 
         holder.favouriteImageButton.setOnClickListener {
-            if (holder.favouriteImageButton.tag == FAV_TAG){
+            if (holder.favouriteImageButton.tag == FAV_TAG) {
                 holder.favouriteImageButton.tag = NOT_FAV_TAG
                 holder.favouriteImageButton.setImageResource(R.drawable.ic_baseline_star_border_24)
                 mViewModel.mRemoveFavourite.value = article
-            }
-            else{
+            } else {
                 holder.favouriteImageButton.tag = FAV_TAG
                 holder.favouriteImageButton.setImageResource(R.drawable.ic_baseline_star_24)
                 mViewModel.mAddFavorite.value = article

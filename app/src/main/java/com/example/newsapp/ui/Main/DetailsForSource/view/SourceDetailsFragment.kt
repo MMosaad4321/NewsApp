@@ -17,13 +17,14 @@ import com.example.newsapp.ui.Main.DetailsForSource.ViewModel.SourceDetailsViewM
 import com.example.newsapp.ui.Main.MainActivity
 import kotlinx.android.synthetic.main.fragment_room.*
 import kotlinx.android.synthetic.main.source_details_fragment.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SourceDetailsFragment :BaseFragment() {
     override var layout: View?= null
     override var progressbarId: Int? = R.id.sourceProgressBar
     lateinit var sourceAdapter : SourceAdapter
 
-    private lateinit var sourceDetailsViewModel: SourceDetailsViewModel
+    private val sourceDetailsViewModel: SourceDetailsViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -33,7 +34,6 @@ class SourceDetailsFragment :BaseFragment() {
 
         layout = inflater.inflate(R.layout.source_details_fragment, container, false)
 
-        setupViewModel()
 
         val id = arguments?.getString("id")
         sourceDetailsViewModel.getDataFromNetwork(id)
@@ -47,10 +47,6 @@ class SourceDetailsFragment :BaseFragment() {
         registerObservers(sourceDetailsViewModel)
         super.onCreateView(inflater, container, savedInstanceState)
         return layout
-    }
-
-    private fun setupViewModel() {
-        sourceDetailsViewModel = ViewModelProvider(this).get(SourceDetailsViewModel::class.java)
     }
 
     override fun registerObservers(viewModel: BaseViewModel) {
@@ -77,7 +73,7 @@ class SourceDetailsFragment :BaseFragment() {
         })
 
         sourceDetailsViewModel.mShowErrorToast.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context!!, getString(it), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(it), Toast.LENGTH_SHORT).show()
         })
 
         sourceDetailsViewModel.mAddFavorite.observe(viewLifecycleOwner, Observer {

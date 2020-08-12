@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.Common.BaseViewModel
-import com.example.newsapp.models.Article
 import com.example.newsapp.Common.NewsRepository
+import com.example.newsapp.models.Article
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 
 class HeadLinesLocalViewModel : BaseViewModel() {
 
@@ -16,7 +17,7 @@ class HeadLinesLocalViewModel : BaseViewModel() {
 
     fun getDataFromRoom() {
         viewModelScope.launch {
-            NewsRepository.getFavouriteNews {
+            newsRepo.getFavouriteNews {
                 initLocalList(it)
             }
         }
@@ -28,8 +29,8 @@ class HeadLinesLocalViewModel : BaseViewModel() {
 
     override fun deleteNews(article: Article) {
         viewModelScope.launch {
-            NewsRepository.deleteNewsRepo(article)
-            NewsRepository.getFavouriteNews {
+            newsRepo.deleteNewsRepo(article)
+            newsRepo.getFavouriteNews {
                initLocalList(it)
             }
         }

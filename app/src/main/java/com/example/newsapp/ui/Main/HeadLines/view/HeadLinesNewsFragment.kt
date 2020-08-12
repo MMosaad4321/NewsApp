@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.Common.BaseFragment
 import com.example.newsapp.Common.BaseViewModel
+import com.example.newsapp.Common.NewsRepository
 import com.example.newsapp.R
 import com.example.newsapp.Utilities.share
 import com.example.newsapp.ui.Details.view.DetailsActivity
@@ -18,16 +19,19 @@ import com.example.newsapp.ui.Main.MainActivity
 import kotlinx.android.synthetic.main.fragment_network.view.*
 import kotlinx.android.synthetic.main.fragment_network.view.toolbar
 import kotlinx.android.synthetic.main.fragment_room.*
+import org.koin.androidx.viewmodel.compat.ViewModelCompat
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
-class HeadLineNewsFragment : BaseFragment() {
+class HeadLinesNewsFragment : BaseFragment() {
 
     override var layout: View? = null
     override var progressbarId: Int? = R.id.newsNetworkProgressBar
-    lateinit var headLinesViewModel: HeadLinesViewModel
+    private val headLinesViewModel: HeadLinesViewModel by viewModel()
     lateinit var headLineNewsAdapter: HeadLineNewsAdapter
     private var searchView: SearchView? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +47,6 @@ class HeadLineNewsFragment : BaseFragment() {
 
         layout = inflater.inflate(R.layout.fragment_network, container, false)
 
-        setupViewModel()
 
         layout?.newsNetworkRecyclerView?.layoutManager = LinearLayoutManager(context)
 
@@ -59,10 +62,6 @@ class HeadLineNewsFragment : BaseFragment() {
 
 
         return layout
-    }
-
-    private fun setupViewModel() {
-        headLinesViewModel = ViewModelProvider(this).get(HeadLinesViewModel::class.java)
     }
 
     override fun registerObservers(viewModel: BaseViewModel) {
@@ -89,7 +88,7 @@ class HeadLineNewsFragment : BaseFragment() {
         })
 
         headLinesViewModel.mShowErrorToast.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(context!!, getString(it), Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(it), Toast.LENGTH_SHORT).show()
         })
 
         headLinesViewModel.mAddFavorite.observe(viewLifecycleOwner, Observer {

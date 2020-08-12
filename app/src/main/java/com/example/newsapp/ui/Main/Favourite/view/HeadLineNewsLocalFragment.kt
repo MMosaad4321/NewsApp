@@ -17,12 +17,14 @@ import com.example.newsapp.ui.Main.Favourite.ViewModel.HeadLinesLocalViewModel
 import com.example.newsapp.ui.Main.MainActivity
 import kotlinx.android.synthetic.main.fragment_room.*
 import kotlinx.android.synthetic.main.fragment_room.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.KoinComponent
 
 class HeadLineNewsLocalFragment : BaseFragment() {
 
     override var layout: View? = null
     override var progressbarId: Int? = R.id.newsRoomProgressBar
-    lateinit var headLinesLocalViewModel: HeadLinesLocalViewModel
+    val headLinesLocalViewModel: HeadLinesLocalViewModel by viewModel()
     lateinit var headLineNewsLocalAdapter: HeadLineNewsLocalAdapter
 
 
@@ -36,8 +38,6 @@ class HeadLineNewsLocalFragment : BaseFragment() {
         layout =inflater.inflate(R.layout.fragment_room,container,false)
 
         Glide.with(this).load(R.drawable.page_empty_page).into(layout?.errorPageImageView!!)
-
-        setupViewModel()
 
         layout?.newsRoomRecyclerView?.layoutManager = LinearLayoutManager(context)
         headLineNewsLocalAdapter =
@@ -54,10 +54,6 @@ class HeadLineNewsLocalFragment : BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         return layout
-    }
-
-    private fun setupViewModel() {
-        headLinesLocalViewModel = ViewModelProvider(this).get(HeadLinesLocalViewModel::class.java)
     }
 
     override fun registerObservers(viewModel: BaseViewModel) {

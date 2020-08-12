@@ -12,9 +12,10 @@ import com.example.newsapp.Utilities.FAV_TAG
 import com.example.newsapp.Utilities.NOT_FAV_TAG
 import com.example.newsapp.Utilities.loadImage
 import com.example.newsapp.ui.Main.HeadLines.ViewModel.HeadLinesViewModel
+import org.koin.core.KoinComponent
 
 
-class HeadLineNewsAdapter(private val mViewModel: HeadLinesViewModel) : RecyclerView.Adapter<HeadLineNewsAdapter.NewsViewHolder>() {
+class HeadLineNewsAdapter(private val mViewModel: HeadLinesViewModel) : RecyclerView.Adapter<HeadLineNewsAdapter.NewsViewHolder>(), KoinComponent {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -43,15 +44,15 @@ class HeadLineNewsAdapter(private val mViewModel: HeadLinesViewModel) : Recycler
         }
 
         holder.nameTextView.setOnClickListener {
-             article?.source?.id?.let{ mViewModel.mSourceObserver.value  = it }
+             article.source?.id?.let{ mViewModel.mSourceObserver.value  = it }
         }
 
         holder.newsImage.setOnClickListener {
-            mViewModel.navigateDetails.value = article?.url
+            mViewModel.navigateDetails.value = article.url
         }
 
         holder.shareImageButton.setOnClickListener {
-            mViewModel.mSharingObserver.value = article?.url
+            mViewModel.mSharingObserver.value = article.url
         }
 
         holder.favouriteImageButton.setOnClickListener {

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="web_client_id">1084574621255-vlbk1hfuuph03fn75v9dl6hh2vnol8v7.apps.googleusercontent.com</string>
+
+    <string name="facebook_application_id" translatable="false">2668912933356094</string>
+    <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fb2668912933356094</string>
 </resources>

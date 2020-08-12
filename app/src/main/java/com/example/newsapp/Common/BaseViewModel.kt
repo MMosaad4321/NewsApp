@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapp.models.Article
 import com.example.newsapp.Common.NewsRepository
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel(), KoinComponent {
     var mLoadingObserver = MutableLiveData<Boolean>()
     var mRemoveFavourite = MutableLiveData<Article>()
     var mSharingObserver = MutableLiveData<String>()
@@ -18,6 +20,7 @@ open class BaseViewModel : ViewModel() {
     var mShowErrorDialog = MutableLiveData<Pair<String,String>>()
     var navigateDetails = MutableLiveData<String>()
     var mSourceObserver = MutableLiveData<String>()
+    val newsRepo : NewsRepository by inject()
 
 
     fun getFormattedDate(publishedAt: String?): String {
@@ -29,7 +32,7 @@ open class BaseViewModel : ViewModel() {
 
     open fun deleteNews(article: Article) {
         viewModelScope.launch {
-            NewsRepository.deleteNewsRepo(article)
+            newsRepo.deleteNewsRepo(article)
         }
     }
 
